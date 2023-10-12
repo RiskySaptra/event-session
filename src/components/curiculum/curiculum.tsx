@@ -7,10 +7,11 @@ import {
   Draggable,
 } from "@hello-pangea/dnd";
 import { FC, useState } from "react";
-import Image from "next/image";
 import { reorder, setEventItem } from "@/utils/function";
 import AddLesson from "@/components/curiculum/add-lesson-dropdown.tsx/add-lesson";
 import EditableField from "@/components/editable-text";
+import Image from "next/image";
+import DeleteButton from "@/components/delete-button";
 
 const Curriculum: FC<CurriculumProps> = ({ state, children }) => {
   const [data, setData] = state;
@@ -54,6 +55,13 @@ const Curriculum: FC<CurriculumProps> = ({ state, children }) => {
     setEventItem(shallowCopy);
     setData(shallowCopy);
     return;
+  };
+
+  const deleteData = (deleteIndex: number) => {
+    const shallowCopy = { ...data };
+    shallowCopy.curriculum.splice(deleteIndex, 1);
+    setData(shallowCopy);
+    setEventItem(shallowCopy);
   };
 
   const getListStyle = (isDraggingOver: boolean) =>
@@ -100,22 +108,18 @@ const Curriculum: FC<CurriculumProps> = ({ state, children }) => {
                         <EditableField state={[data, setData]} index={index} />
                       </div>
 
-                      <div className="flex px-8 pt-4 pb-2">
-                        <button className="bg-[#F6F8FC] py-4 px-[9px] rounded-md ml-3">
-                          <Image
-                            src="/horizontal-dot.svg"
-                            alt="options-icon"
-                            width={18}
-                            height={18}
-                            priority
-                          />
-                        </button>
+                      <div className="relative flex px-8 pt-4 pb-2">
+                        <DeleteButton
+                          onDelete={() => deleteData(index)}
+                          icon="horizontal"
+                        />
                       </div>
                     </div>
 
                     {children({
                       ...session,
                       isDisabeld: session.curriculum_id !== activeDropable,
+                      curriculumIndex: index,
                     })}
 
                     <AddLesson state={[data, setData]} index={index} />

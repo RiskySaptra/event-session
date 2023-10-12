@@ -39,4 +39,5 @@ export interface CurriculumProps {
 
 export interface LessonMaterialProps extends Curriculum {
   isDisabeld: boolean;
+  curriculumIndex: number;
 }

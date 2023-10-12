@@ -1,12 +1,17 @@
 import dayjs from "dayjs";
-import { FC } from "react";
-import { LessonMaterial, LessonMaterialProps } from "../utils/interface";
+import { Dispatch, FC, SetStateAction } from "react";
+import {
+  EventData,
+  LessonMaterial,
+  LessonMaterialProps,
+} from "../utils/interface";
 import Image from "next/image";
-import { secondsToMinutes } from "@/utils/function";
+import { secondsToMinutes, setEventItem } from "@/utils/function";
 import { _eventData_ } from "../utils/constant";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
+import DeleteButton from "@/components/delete-button";
 
-const LessonMaterialItem: FC<LessonMaterial> = ({
+const LessonMaterialItem: FC<LessonMaterial & { onDelete: () => void }> = ({
   lesson_name,
   lesson_schedule,
   lesson_duration,
@@ -14,6 +19,7 @@ const LessonMaterialItem: FC<LessonMaterial> = ({
   is_previewable,
   lesson_type,
   is_downloadable,
+  onDelete,
 }) => {
   return (
     <div className="flex py-2 px-1">
@@ -117,7 +123,8 @@ const LessonMaterialItem: FC<LessonMaterial> = ({
               </>
             )}
           </p>
-          <button className="bg-[#F6F8FC] py-2 px-4 rounded-md ml-3">
+          <DeleteButton onDelete={onDelete} icon="vertical" />
+          {/* <button className="bg-[#F6F8FC] py-2 px-4 rounded-md ml-3">
             <Image
               src="/vertical-dot.svg"
               alt="options-icon"
@@ -125,22 +132,39 @@ const LessonMaterialItem: FC<LessonMaterial> = ({
               height={5}
               priority
             />
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
   );
 };
 
-const LessonMaterial: FC<LessonMaterialProps> = ({
+const LessonMaterial: FC<
+  LessonMaterialProps & {
+    state: [EventData, Dispatch<SetStateAction<EventData | undefined>>];
+  }
+> = ({
   curriculum_id,
   lesson_material,
   isDisabeld,
+  state,
+  curriculumIndex,
 }) => {
+  const [data, setData] = state;
   const getListStyle = (isDraggingOver: boolean) =>
     isDraggingOver ? "bg-gray-50 rounded-md" : "rounded-md";
   const getItemStyle = (isDragging: boolean) =>
     isDragging ? "border rounded-md bg-[#FBFAFF] border-[#7800EF]" : "";
+
+  const deleteData = (deleteIndex: number) => {
+    const shallowCopy = { ...data };
+    shallowCopy.curriculum[curriculumIndex].lesson_material.splice(
+      deleteIndex,
+      1
+    );
+    setData(shallowCopy);
+    setEventItem(shallowCopy);
+  };
 
   return (
     <div className="py-2 px-7">
@@ -165,7 +189,10 @@ const LessonMaterial: FC<LessonMaterialProps> = ({
                     className={getItemStyle(snapshot.isDragging)}
                     style={provided.draggableProps.style}
                   >
-                    <LessonMaterialItem {...lesson} />
+                    <LessonMaterialItem
+                      {...lesson}
+                      onDelete={() => deleteData(idx)}
+                    />
                   </div>
                 )}
               </Draggable>

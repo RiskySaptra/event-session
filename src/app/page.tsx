@@ -32,7 +32,7 @@ export default function Home() {
 
   if (!data)
     return (
-      <div className="w-full py-[400px] flex justify-center">Loading...</div>
+      <div className="w-full pt-[300px] flex justify-center">Loading...</div>
     );
 
   return (
@@ -61,9 +61,18 @@ export default function Home() {
         <CurriculumSection />
         <EventSchedule data={data} />
         <Curriculum state={[data, setData]}>
-          {(props) => <LessonMaterial {...props} />}
+          {(props) => <LessonMaterial {...props} state={[data, setData]} />}
         </Curriculum>
         <AddSessionModal state={[data, setData]} />
+        <button
+          className="bg-green-400 p-1 rounded-md text-sm"
+          onClick={() => {
+            localStorage.removeItem("data");
+            location.reload();
+          }}
+        >
+          Reset Data (reset to default)
+        </button>
       </div>
     </main>
   );
