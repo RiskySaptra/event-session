@@ -1,3 +1,5 @@
+import { EventData } from "@/utils/interface";
+
 export function secondsToMinutes(seconds: number) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -13,6 +15,6 @@ export const reorder = (list: any[], startIndex: number, endIndex: number) => {
   return result;
 };
 
-export const setEventItem = (data: any) => {
+export const setEventItem = (data: EventData) => {
   return localStorage.setItem("data", JSON.stringify(data));
 };

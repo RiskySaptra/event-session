@@ -1,4 +1,4 @@
-import { EventData } from "@/utils/interface";
+import { Curriculum, EventData, LessonMaterial } from "@/utils/interface";
 export const _eventData_: EventData = {
   event_name: "Belajar dan praktek cinematic videography",
   last_edited: "2021-10-18T13:23:00.000",
@@ -41,4 +41,21 @@ export const _eventData_: EventData = {
       ],
     },
   ],
+};
+
+export const defaultData: Curriculum = {
+  curriculum_id: (Math.random() + 1).toString(36).substring(7),
+  curriculum_name: "default name",
+  lesson_material: [],
+};
+
+export const defaultState: LessonMaterial = {
+  lesson_id: (Math.random() + 1).toString(36).substring(7),
+  lesson_name: "",
+  lesson_type: "",
+  is_required: false,
+  is_previewable: false,
+  lesson_schedule: "",
+  lesson_duration: 0,
+  is_downloadable: true,
 };
