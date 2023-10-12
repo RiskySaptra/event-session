@@ -97,7 +97,7 @@ const Curriculum: FC<CurriculumProps> = ({ state, children }) => {
                     <div className="flex justify-between">
                       <div className="flex items-center px-4 pt-4">
                         <Image
-                          src="/handle.svg"
+                          src="/handle-icon.svg"
                           alt="handle-icon"
                           className="mr-2"
                           width={22.97}
