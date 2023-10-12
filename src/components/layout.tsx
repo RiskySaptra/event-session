@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode } from "react";
 import Image from "next/image";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function ComponentsLayout({
   children,
@@ -29,6 +30,7 @@ export default function ComponentsLayout({
         </div>
       </nav>
       {children}
+      <Analytics />
     </body>
   );
 }
