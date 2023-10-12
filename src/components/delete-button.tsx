@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import React, { MouseEvent, ReactNode } from "react";
 
 const DeleteButton = ({
   onDelete,
@@ -9,6 +10,13 @@ const DeleteButton = ({
   icon: string;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
+    console.log(e.target);
+    console.log(e.currentTarget);
+    if (e.target === e.currentTarget) {
+      setOpen(false);
+    }
+  };
   return (
     <div className="relative">
       <button
