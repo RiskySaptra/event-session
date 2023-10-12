@@ -20,7 +20,7 @@ const LessonMaterialItem: FC<LessonMaterial> = ({
       <div className="flex justify-between hover:bg-[#FBFAFF] w-full items-center">
         <div className="flex">
           <Image
-            src="/handle.svg"
+            src="/handle-icon.svg"
             alt="handle-icon"
             className="mr-2"
             width={22.97}
