@@ -6,6 +6,10 @@
 [contenteditable="true"]:focus {
   border: none;
   outline: none;
+  background-color: #fbfaff;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  padding: 5px 10px 5px 10px;
 }
 
 input:checked ~ .dot {
