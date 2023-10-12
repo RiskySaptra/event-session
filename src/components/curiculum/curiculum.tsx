@@ -108,7 +108,7 @@ const Curriculum: FC<CurriculumProps> = ({ state, children }) => {
                         <EditableField state={[data, setData]} index={index} />
                       </div>
 
-                      <div className="relative flex px-8 pt-4 pb-2">
+                      <div className="relative flex pr-8 md:px-8 pt-4 pb-2">
                         <DeleteButton
                           onDelete={() => deleteData(index)}
                           icon="horizontal"

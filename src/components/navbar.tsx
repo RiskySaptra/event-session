@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Navbar = () => {
   return (
-    <nav className="h-[92px] flex py-[26px] px-[82px] shadow-[0_4px_35px_0px_rgba(39,26,73,0.05)] sticky top-0 bg-white">
+    <nav className="md:h-[92px] flex py-[26px] px-5 md:px-[82px] shadow-[0_4px_35px_0px_rgba(39,26,73,0.05)] sticky top-0 bg-white">
       <div className="mr-6 flex item-center">
         <Image
           src="/left.svg"

@@ -31,7 +31,7 @@ const EditableField: FC<{
         contentEditable
         suppressContentEditableWarning
         spellCheck={false}
-        className="text-[24px] font-[500] leading-[32px] text-[#252A3C] [contenteditable]:active:bg-black"
+        className="text-[17px] md:text-[24px] font-[500] leading-[32px] text-[#252A3C] [contenteditable]:active:bg-black"
         onBlur={(e) => setDatas(e.target.innerHTML)}
         // onFocus={(e) => console.log(e.target.innerHTML, "start")}
         onKeyDown={(e) => {

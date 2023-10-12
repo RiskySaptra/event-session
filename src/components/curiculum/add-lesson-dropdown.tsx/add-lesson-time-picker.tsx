@@ -48,7 +48,7 @@ const TimePicker: FC<{
           onChange={handleTimeChange}
           className="px-1 outline-none appearance-none bg-transparent"
         >
-          {Array.from({ length: 13 }, (_, i) => (i > 9 ? `${i}` : `0${i}`)).map(
+          {Array.from({ length: 25 }, (_, i) => (i > 9 ? `${i}` : `0${i}`)).map(
             (item) => (
               <option key={item} value={item}>
                 {item}

@@ -8,11 +8,11 @@ import { defaultData } from "@/utils/constant";
 
 export const EventInfo: FC<HomeProps> = ({ data }) => {
   return (
-    <div className="grid grid-flow-col py-14 space-x-10">
-      <p className="text-[32px] font-[500] leading-[32px] text-[#252A3C]">
+    <div className="grid md:grid-flow-col py-8 md:py-14 space-y-2 md:space-y-0 md:space-x-10">
+      <p className="text-[25px] leading-[30px] md:text-[32px] font-[500] md:leading-[32px] text-[#252A3C]">
         {data.event_name}
       </p>
-      <div className="flex items-end">
+      <div className="flex items-start md:items-end">
         <p className="text-[12px] leading-[16.8px] font-[500] text-[#8189A2]">
           Last edited {dayjs(data.last_edited).format("DD MMMM YYYY | HH:mm")}
         </p>
@@ -35,7 +35,7 @@ export function CurriculumSection() {
 
 export function EventSchedule({ data }: HomeProps) {
   return (
-    <div className="border-2 p-[24px] mt-10 rounded-[8px]">
+    <div className="border-2 p-2 md:p-[24px] mt-10 rounded-[8px]">
       <p className="text-[16px] font-[500] leading-[24px] text-[#252A3C]">
         Event Schedule:{" "}
         {dayjs(data.event_schedule).format("DD MMMM YYYY, HH:mm")}
@@ -108,7 +108,7 @@ export const AddSessionModal: FC<{
           onClick={() => submit()}
           className="mt-4 py-[10px] px-[16px] font-[400] text-[12px] text-white rounded-lg bg-[#6F32D2]"
         >
-          Add Lesson
+          Add Session
         </button>
       </Modal>
     </>

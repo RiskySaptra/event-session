@@ -34,14 +34,17 @@ const LessonMaterialItem: FC<LessonMaterial & { onDelete: () => void }> = ({
             priority
           />
           <div className="flex items-center">
-            <Image
-              src={`/${lesson_type}-icon.svg`}
-              alt={lesson_type}
-              className="mr-2"
-              width={48}
-              height={48}
-              priority
-            />
+            {lesson_type && (
+              <Image
+                src={`/${lesson_type}-icon.svg`}
+                alt={lesson_type}
+                className="mr-2"
+                width={48}
+                height={48}
+                priority
+              />
+            )}
+
             <p className="text-[16px] font-[500] leading-[24px] text-[#252A3C]">
               {lesson_name}
               {is_required && (
@@ -52,7 +55,7 @@ const LessonMaterialItem: FC<LessonMaterial & { onDelete: () => void }> = ({
               )}
               {is_previewable && (
                 <>
-                  <span className="text-[#8189A2]/80">
+                  <span className="hidden md:inline-block text-[#8189A2]/80">
                     <Image
                       src="/previewable.svg"
                       alt="previewable-icon"
@@ -70,26 +73,31 @@ const LessonMaterialItem: FC<LessonMaterial & { onDelete: () => void }> = ({
         </div>
 
         <div className="flex items-center">
-          <p className="text-[16px] font-[500] leading-[24px] text-[#252A3C]">
-            <Image
-              src="/time.svg"
-              alt="time-icon"
-              className="inline-block mr-2"
-              width={24}
-              height={24}
-              priority
-            />
-            {dayjs(lesson_schedule).format("DD MMMM YYYY, HH:mm")}
-            <span className="text-[#8189A2]/80">
-              <Image
-                src="/previewable.svg"
-                alt="previewable-icon"
-                className="inline-block"
-                width={24}
-                height={24}
-                priority
-              />
-            </span>
+          <p className="hidden md:inline-block text-[16px] font-[500] leading-[24px] text-[#252A3C]">
+            {lesson_schedule && (
+              <>
+                <Image
+                  src="/time.svg"
+                  alt="time-icon"
+                  className="inline-block mr-2"
+                  width={24}
+                  height={24}
+                  priority
+                />
+                {dayjs(lesson_schedule).format("DD MMMM YYYY, HH:mm")}
+                <span className="text-[#8189A2]/80">
+                  <Image
+                    src="/previewable.svg"
+                    alt="previewable-icon"
+                    className="inline-block"
+                    width={24}
+                    height={24}
+                    priority
+                  />
+                </span>
+              </>
+            )}
+
             <Image
               src="/time.svg"
               alt="time-icon"
@@ -124,15 +132,6 @@ const LessonMaterialItem: FC<LessonMaterial & { onDelete: () => void }> = ({
             )}
           </p>
           <DeleteButton onDelete={onDelete} icon="vertical" />
-          {/* <button className="bg-[#F6F8FC] py-2 px-4 rounded-md ml-3">
-            <Image
-              src="/vertical-dot.svg"
-              alt="options-icon"
-              width={5}
-              height={5}
-              priority
-            />
-          </button> */}
         </div>
       </div>
     </div>

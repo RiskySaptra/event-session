@@ -37,10 +37,10 @@ export default function Home() {
 
   return (
     <main>
-      <div className="px-20 mb-32">
-        <div className="flex justify-between items-center">
+      <div className="md:px-20 px-5 mb-32">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <EventInfo data={data} />
-          <div>
+          <div className="mb-5 md:mb-0">
             <button
               type="button"
               className="py-[10px] px-[16px] font-[400] text-[16px] text-[#6F32D2] rounded-lg border-[1px] border-[#6F32D2]"
@@ -63,9 +63,11 @@ export default function Home() {
         <Curriculum state={[data, setData]}>
           {(props) => <LessonMaterial {...props} state={[data, setData]} />}
         </Curriculum>
+
         <AddSessionModal state={[data, setData]} />
+
         <button
-          className="bg-green-400 p-1 rounded-md text-sm"
+          className="bg-green-400 p-1 mt-20 rounded-md text-sm text-white"
           onClick={() => {
             localStorage.removeItem("data");
             location.reload();
