@@ -1,18 +1,17 @@
 import { setEventItem } from "@/utils/function";
-import { EventData } from "@/utils/interface";
-import { FC, Dispatch, SetStateAction, useState } from "react";
+import { useGetDataProps } from "@/utils/interface";
+import { FC, useState } from "react";
 import Image from "next/image";
 import { defaultState } from "@/utils/constant";
 import AddLessonForm from "@/components/curiculum/add-lesson-dropdown.tsx/add-lesson-form";
 
-const AddLesson: FC<{
-  state: [EventData, Dispatch<SetStateAction<EventData | undefined>>];
-  index: number;
-}> = ({ state, index }) => {
+const AddLesson: FC<
+  useGetDataProps & {
+    index: number;
+  }
+> = ({ data, setData, index }) => {
   const [open, setOpen] = useState(false);
   const [newData, setNewData] = useState(defaultState);
-  const [data, setData] = state;
-
   const setDatas = () => {
     const shallowCopy = { ...data };
     shallowCopy.curriculum[index].lesson_material = [

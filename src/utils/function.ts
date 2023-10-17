@@ -1,3 +1,4 @@
+import { _eventData_ } from "@/utils/constant";
 import { EventData } from "@/utils/interface";
 
 export function secondsToMinutes(seconds: number) {
@@ -17,4 +18,11 @@ export const reorder = (list: any[], startIndex: number, endIndex: number) => {
 
 export const setEventItem = (data: EventData) => {
   return localStorage.setItem("data", JSON.stringify(data));
+};
+
+export const getEventItem = () => {
+  const data = localStorage.getItem("data");
+  if (!data) return _eventData_;
+  const parsed = JSON.parse(data || "");
+  return parsed;
 };

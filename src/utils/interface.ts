@@ -1,9 +1,5 @@
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
-export interface HomeProps {
-  data: EventData;
-}
-
 export interface LessonMaterial {
   lesson_id: string;
   lesson_name: string;
@@ -32,12 +28,17 @@ export interface LessonMaterialItemProps {
   data: LessonMaterial;
 }
 
-export interface CurriculumProps {
-  state: [EventData, Dispatch<SetStateAction<EventData | undefined>>];
+export interface CurriculumProps extends useGetDataProps {
   children: (props: LessonMaterialProps) => ReactElement<boolean>;
 }
 
-export interface LessonMaterialProps extends Curriculum {
+export interface LessonMaterialProps extends Curriculum, useGetDataProps {
   isDisabeld: boolean;
   curriculumIndex: number;
+}
+
+export interface useGetDataProps {
+  data: EventData;
+  setData: Dispatch<SetStateAction<EventData>>;
+  isLoading: boolean;
 }

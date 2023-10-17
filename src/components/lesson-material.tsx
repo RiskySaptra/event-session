@@ -1,10 +1,6 @@
 import dayjs from "dayjs";
-import { Dispatch, FC, SetStateAction } from "react";
-import {
-  EventData,
-  LessonMaterial,
-  LessonMaterialProps,
-} from "../utils/interface";
+import {  FC } from "react";
+import { LessonMaterial, LessonMaterialProps } from "../utils/interface";
 import Image from "next/image";
 import { secondsToMinutes, setEventItem } from "@/utils/function";
 import { _eventData_ } from "../utils/constant";
@@ -138,18 +134,14 @@ const LessonMaterialItem: FC<LessonMaterial & { onDelete: () => void }> = ({
   );
 };
 
-const LessonMaterial: FC<
-  LessonMaterialProps & {
-    state: [EventData, Dispatch<SetStateAction<EventData | undefined>>];
-  }
-> = ({
+const LessonMaterial: FC<LessonMaterialProps> = ({
   curriculum_id,
   lesson_material,
   isDisabeld,
-  state,
+  data,
+  setData,
   curriculumIndex,
 }) => {
-  const [data, setData] = state;
   const getListStyle = (isDraggingOver: boolean) =>
     isDraggingOver ? "bg-gray-50 rounded-md" : "rounded-md";
   const getItemStyle = (isDragging: boolean) =>

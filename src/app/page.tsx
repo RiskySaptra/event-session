@@ -1,8 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
 import { _eventData_ } from "../utils/constant";
 import LessonMaterial from "@/components/lesson-material";
-import { EventData } from "@/utils/interface";
 import Curriculum from "@/components/curiculum/curiculum";
 import Image from "next/image";
 import {
@@ -11,26 +9,12 @@ import {
   EventSchedule,
   AddSessionModal,
 } from "@/components/home/home-components";
-
-const getEventItem = () => {
-  if (typeof localStorage !== "undefined") {
-    const data = localStorage.getItem("data");
-    if (!data) return _eventData_;
-    const parsed = JSON.parse(data || "");
-    return parsed;
-  }
-
-  return _eventData_;
-};
+import { useGetData } from "@/utils/hooks";
 
 export default function Home() {
-  const [data, setData] = useState<EventData | undefined>();
+  const dataHooks = useGetData();
 
-  useEffect(() => {
-    setData(getEventItem);
-  }, []);
-
-  if (!data)
+  if (dataHooks.isLoading)
     return (
       <div className="w-full pt-[300px] flex justify-center">Loading...</div>
     );
@@ -39,7 +23,7 @@ export default function Home() {
     <main>
       <div className="md:px-20 px-5 mb-32">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center">
-          <EventInfo data={data} />
+          <EventInfo {...dataHooks.data} />
           <div className="mb-5 md:mb-0">
             <button
               type="button"
@@ -59,12 +43,12 @@ export default function Home() {
         </div>
 
         <CurriculumSection />
-        <EventSchedule data={data} />
-        <Curriculum state={[data, setData]}>
-          {(props) => <LessonMaterial {...props} state={[data, setData]} />}
+        <EventSchedule {...dataHooks.data} />
+        <Curriculum {...dataHooks}>
+          {(props) => <LessonMaterial {...props} />}
         </Curriculum>
 
-        <AddSessionModal state={[data, setData]} />
+        <AddSessionModal {...dataHooks} />
 
         <button
           className="bg-green-400 p-1 mt-20 rounded-md text-sm text-white"

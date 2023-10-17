@@ -1,14 +1,14 @@
 import { setEventItem } from "@/utils/function";
-import { EventData } from "@/utils/interface";
-import { FC, Dispatch, SetStateAction, useRef } from "react";
+import { useGetDataProps } from "@/utils/interface";
+import { FC, useRef } from "react";
 import Image from "next/image";
 
-const EditableField: FC<{
-  state: [EventData, Dispatch<SetStateAction<EventData | undefined>>];
-  index: number;
-}> = ({ state, index }) => {
+const EditableField: FC<
+  useGetDataProps & {
+    index: number;
+  }
+> = ({ data, setData, index }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [data, setData] = state;
 
   const setDatas = (newCuriculumName: string) => {
     const shallowCopy = { ...data };
@@ -33,7 +33,6 @@ const EditableField: FC<{
         spellCheck={false}
         className="text-[17px] md:text-[24px] font-[500] leading-[32px] text-[#252A3C] [contenteditable]:active:bg-black"
         onBlur={(e) => setDatas(e.target.innerHTML)}
-        // onFocus={(e) => console.log(e.target.innerHTML, "start")}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.currentTarget.blur();

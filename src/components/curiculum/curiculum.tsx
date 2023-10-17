@@ -13,8 +13,8 @@ import EditableField from "@/components/editable-text";
 import Image from "next/image";
 import DeleteButton from "@/components/delete-button";
 
-const Curriculum: FC<CurriculumProps> = ({ state, children }) => {
-  const [data, setData] = state;
+const Curriculum: FC<CurriculumProps> = (props) => {
+  const { data, setData, isLoading, children } = props;
   const [activeDropable, setActiveDropable] = useState("");
 
   const onDragStart = (task: DragStart) => {
@@ -105,7 +105,7 @@ const Curriculum: FC<CurriculumProps> = ({ state, children }) => {
                           height={24}
                           priority
                         />
-                        <EditableField state={[data, setData]} index={index} />
+                        <EditableField {...props} index={index} />
                       </div>
 
                       <div className="relative flex pr-8 md:px-8 pt-4 pb-2">
@@ -120,9 +120,12 @@ const Curriculum: FC<CurriculumProps> = ({ state, children }) => {
                       ...session,
                       isDisabeld: session.curriculum_id !== activeDropable,
                       curriculumIndex: index,
+                      data,
+                      setData,
+                      isLoading,
                     })}
 
-                    <AddLesson state={[data, setData]} index={index} />
+                    <AddLesson {...props} index={index} />
                   </div>
                 )}
               </Draggable>

@@ -1,20 +1,20 @@
 import Modal from "@/components/modal";
 import { setEventItem } from "@/utils/function";
-import { Curriculum, EventData, HomeProps } from "@/utils/interface";
+import { Curriculum, EventData, useGetDataProps } from "@/utils/interface";
 import dayjs from "dayjs";
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import Image from "next/image";
 import { defaultData } from "@/utils/constant";
 
-export const EventInfo: FC<HomeProps> = ({ data }) => {
+export const EventInfo: FC<EventData> = ({ event_name, last_edited }) => {
   return (
     <div className="grid md:grid-flow-col py-8 md:py-14 space-y-2 md:space-y-0 md:space-x-10">
       <p className="text-[25px] leading-[30px] md:text-[32px] font-[500] md:leading-[32px] text-[#252A3C]">
-        {data.event_name}
+        {event_name}
       </p>
       <div className="flex items-start md:items-end">
         <p className="text-[12px] leading-[16.8px] font-[500] text-[#8189A2]">
-          Last edited {dayjs(data.last_edited).format("DD MMMM YYYY | HH:mm")}
+          Last edited {dayjs(last_edited).format("DD MMMM YYYY | HH:mm")}
         </p>
       </div>
     </div>
@@ -33,23 +33,19 @@ export function CurriculumSection() {
   );
 }
 
-export function EventSchedule({ data }: HomeProps) {
+export function EventSchedule({ event_schedule }: EventData) {
   return (
     <div className="border-2 p-2 md:p-[24px] mt-10 rounded-[8px]">
       <p className="text-[16px] font-[500] leading-[24px] text-[#252A3C]">
-        Event Schedule:{" "}
-        {dayjs(data.event_schedule).format("DD MMMM YYYY, HH:mm")}
+        Event Schedule: {dayjs(event_schedule).format("DD MMMM YYYY, HH:mm")}
       </p>
     </div>
   );
 }
 
-export const AddSessionModal: FC<{
-  state: [EventData, Dispatch<SetStateAction<EventData | undefined>>];
-}> = ({ state }) => {
+export const AddSessionModal: FC<useGetDataProps> = ({ data, setData }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [newData, setNewData] = useState<Curriculum>(defaultData);
-  const [data, setData] = state;
 
   const submit = () => {
     const shallowCopy = { ...data };
